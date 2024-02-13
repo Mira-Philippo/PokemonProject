@@ -1,21 +1,24 @@
-﻿using System.Collections.Generic;
-using System.Net;
-using System.Net.Http.Headers;
-using System.Text.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
+using System.Net.Http.Headers;
 using System.Resources;
+using System.Text;
+using System.Text.Json;
+using System.Threading.Tasks;
+using System.Net;
 using System.Drawing;
+using System.IO;
 
-namespace API
+
+namespace PokemonProject
 {
-    internal class Program
+    public class APICall
     {
-        static void Main(string[] args)
+        public static void CallAPI()
         {
             List<int> moveIDList = new List<int>();
-            int pokemonList = 493;
+            int pokemonList = 20;
 
 
             pokemonList++;
@@ -27,6 +30,7 @@ namespace API
             //GET POKEMON
             string baseURL = "https://pokeapi.co/api/v2/";
             HttpClient httpClient = new HttpClient();
+            WebClient webClient = new WebClient();
             httpClient.BaseAddress = new Uri(baseURL);
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             for (int c = 1; c < pokemonList; c++)
@@ -41,12 +45,32 @@ namespace API
                     string[] spriteString = ObjectToStringList(pokemon.sprites.versions);
                     spriteString = TrimArray(146, 162, spriteString);
                     //index 145 has the start of animated so we can cut everything before that away
+                    
+                    Image image = null;
+                    image = Image.FromStream(new MemoryStream(webClient.DownloadData("https:" + spriteString[1])));
+                    image.Save($"..\\..\\..\\PokemonSprites/pokemon_{c:000}_{spriteString[0]}.gif");
+                    image = Image.FromStream(new MemoryStream(webClient.DownloadData("https:" + spriteString[5])));
+                    image.Save($"..\\..\\..\\PokemonSprites/pokemon_{c:000}_{spriteString[4]}.gif");
+                    image = Image.FromStream(new MemoryStream(webClient.DownloadData("https:" + spriteString[9])));
+                    image.Save($"..\\..\\..\\PokemonSprites/pokemon_{c:000}_{spriteString[8]}.gif");
+                    image = Image.FromStream(new MemoryStream(webClient.DownloadData("https:" + spriteString[13])));
+                    image.Save($"..\\..\\..\\PokemonSprites/pokemon_{c:000}_{spriteString[12]}.gif");
+                    
+                    
 
-                    //WebClient webClient = new WebClient();
-                    //webClient.DownloadFile("https" + spriteString[1], "\\..\\test.gif");
-                    //webClient.Dispose();
-
-                    Console.WriteLine();
+                    if(spriteString[3] != "null")
+                    {
+                        image = null;
+                        image = Image.FromStream(new MemoryStream(webClient.DownloadData("https:" + spriteString[3])));
+                        image.Save($"..\\..\\..\\PokemonSprites/pokemon_{c:000}_{spriteString[2]}.gif");
+                        image = Image.FromStream(new MemoryStream(webClient.DownloadData("https:" + spriteString[7])));
+                        image.Save($"..\\..\\..\\PokemonSprites/pokemon_{c:000}_{spriteString[6]}.gif");
+                        image = Image.FromStream(new MemoryStream(webClient.DownloadData("https:" + spriteString[11])));
+                        image.Save($"..\\..\\..\\PokemonSprites/pokemon_{c:000}_{spriteString[10]}.gif");
+                        image = Image.FromStream(new MemoryStream(webClient.DownloadData("https:" + spriteString[15])));
+                        image.Save($"..\\..\\..\\PokemonSprites/pokemon_{c:000}_{spriteString[14]}.gif");
+                    }
+                    
                     /*
                     var response2 = httpClient.GetAsync("pokemon-species/" + c).Result;
                     if (response2.IsSuccessStatusCode)
@@ -57,10 +81,12 @@ namespace API
                     */
                 }
             }
+            webClient.Dispose();
+            httpClient.Dispose();
         }
-        public static string[] TrimArray(int startIndex, int endIndex, string[] array) 
+        public static string[] TrimArray(int startIndex, int endIndex, string[] array)
         {
-            string[] returnArray = new string[endIndex-startIndex];
+            string[] returnArray = new string[endIndex - startIndex];
             int n = 0;
             for (int i = startIndex; i < endIndex; i++)
             {
@@ -80,7 +106,7 @@ namespace API
             json = json.Replace('"', ' ');
             json = json.Replace(':', ' ');
             string[] split = json.Split(' ');
-            
+
             int n = 0;
             for (int i = 0; i < split.Length; i++)
             {
@@ -116,7 +142,7 @@ namespace API
         public object types { get; set; } //types
 
         public PokemonSprites sprites { get; set; }
-       // public pokemonStat[] stats { get; set; } //EVYield
+        // public pokemonStat[] stats { get; set; } //EVYield
         //public pokemonAbility[] abilities { get; set; }
 
         //public PokemonMove[] moves { get; set; }
