@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PokemonClasses
+namespace PokemonData
 {
-    public class Move
+    internal class LoadData
     {
-        public int Power;
     }
 }

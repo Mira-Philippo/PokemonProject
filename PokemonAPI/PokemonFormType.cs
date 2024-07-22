@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PokemonClasses
+namespace PokemonAPI
 {
-    public class Move
+    public class PokemonFormType
     {
-        public int Power;
+        int slot {  get; set; }
+        NamedAPIResource type { get; set; }
     }
 }

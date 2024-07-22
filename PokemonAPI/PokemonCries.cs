@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PokemonClasses
+namespace PokemonAPI
 {
-    public class Move
+    public class PokemonCries
     {
-        public int Power;
+        string latest {  get; set; }
+        string legacy {  get; set; }
     }
 }

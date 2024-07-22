@@ -5,7 +5,7 @@ namespace PokemonBattleCalculations
 {
     public class BattleCalc
     {
-        public int CalculateMoveDamage(Pokemon attackingPokemon, Pokemon defendingPokemon, Move attackingMove, Weather weather)
+        public int CalculateMoveDamage(Pokemon attackingPokemon, Pokemon defendingPokemon, Move attackingMove, BattleState state)
         {
             //(((2*level)/5)+2)
             float calculationResult = 0;
@@ -13,18 +13,18 @@ namespace PokemonBattleCalculations
             calculationResult /= 5;
             calculationResult += 2;
             calculationResult *= attackingMove.Power;
-            float defenseCalc = attackingPokemon.Attack / defendingPokemon.Defense;
+            float defenseCalc = attackingPokemon.statAttack / defendingPokemon.statDefense;
             calculationResult *= defenseCalc;
             calculationResult /= 50;
             calculationResult += 2;
-            calculationResult *= WeatherCalculation(weather, attackingMove);
-            calculationResult *= GetRandomCrit();
+            calculationResult *= WeatherCalculation(state.Weather, attackingMove);
+            calculationResult *= GetRandomCrit(state.Random);
             Math.Floor(calculationResult);
             calculationResult *= GetRandomDamageFactor();
             calculationResult *= IsSTABMove();
             calculationResult *= TypeEffectiveness(defendingPokemon, attackingMove);
-            calculationResult *= attackingPokemon.IsBurned;
-            return calculationResult;
+            if (attackingPokemon.IsBurned) { calculationResult *= 0.5f; };
+            return (int)calculationResult;
         }
 
         public int WeatherCalculation(Weather weather, Move affectedMove)
@@ -41,9 +41,14 @@ namespace PokemonBattleCalculations
             return 1f;
         }
 
-        public float TypeEffectiveness(PokemonStats defendingPokemon, Move attackingMove)
+        public float TypeEffectiveness(Pokemon defendingPokemon, Move attackingMove)
         {
             return 1f;
+        }
+
+        public float GetRandomCrit(int randomValue)
+        {
+            return 1;
         }
     }
 }

@@ -8,12 +8,16 @@ namespace PokemonClasses
 {
     public class Pokemon
     {
-        Move[] moves = new Move[4];
-        PokemonStats stats = new PokemonStats();
-        HeldItem heldItem;
-        Ability ability;
-        Type type1;
-        Type type2;
+        public string Name;
+        public int Id;
+        public List<StatusEffect> effects = new List<StatusEffect>();
+        public Move[] moves = new Move[4];
+        public PokemonStats stats = new PokemonStats();
+        public HeldItem heldItem;
+        public Ability ability;
+        public Type type1;
+        public Type type2;
+        public int Level;
 
         public Move Move1 {
             get 
@@ -126,6 +130,6 @@ namespace PokemonClasses
             }
         }
 
-
+        public bool IsBurned { get { if (this.effects.Contains(StatusEffect.Burn)){ return true; } return false; } }
     }
 }

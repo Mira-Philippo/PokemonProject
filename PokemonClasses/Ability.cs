@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PokemonClasses
 {
-    internal class Ability
+    public class Ability
     {
     }
 }

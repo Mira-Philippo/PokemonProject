@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PokemonClasses
+namespace PokemonAPI
 {
-    public class Move
+    public class APIResource
     {
-        public int Power;
+        public string url {  get; set; }
     }
 }

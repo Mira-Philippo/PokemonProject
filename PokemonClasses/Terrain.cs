@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace PokemonClasses
 {
-    public class Move
+    public class Terrain
     {
-        public int Power;
     }
 }
