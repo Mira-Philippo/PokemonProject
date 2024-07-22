@@ -42,6 +42,7 @@
             OpponentHealthBar = new PictureBox();
             OpponentPokemonLayer_L5 = new PictureBox();
             AttackSprite = new PictureBox();
+            Pokemon = new Button();
             ((System.ComponentModel.ISupportInitialize)OpponentPokemon_L5).BeginInit();
             ((System.ComponentModel.ISupportInitialize)BattleBases_L2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)PlayerPokemon_L3).BeginInit();
@@ -69,9 +70,14 @@
             // 
             // Fight
             // 
-            Fight.Location = new Point(39, 31);
+            Fight.Cursor = Cursors.Hand;
+            Fight.FlatAppearance.BorderColor = Color.FromArgb(255, 192, 192);
+            Fight.FlatAppearance.MouseDownBackColor = Color.Red;
+            Fight.FlatAppearance.MouseOverBackColor = Color.FromArgb(255, 128, 128);
+            Fight.FlatStyle = FlatStyle.Flat;
+            Fight.Location = new Point(12, 600);
             Fight.Name = "Fight";
-            Fight.Size = new Size(158, 86);
+            Fight.Size = new Size(285, 85);
             Fight.TabIndex = 1;
             Fight.Text = "Call API";
             Fight.UseVisualStyleBackColor = true;
@@ -79,9 +85,9 @@
             // 
             // Run
             // 
-            Run.Location = new Point(21, 123);
+            Run.Location = new Point(912, 600);
             Run.Name = "Run";
-            Run.Size = new Size(176, 83);
+            Run.Size = new Size(285, 85);
             Run.TabIndex = 2;
             Run.Text = "Pokemon --";
             Run.UseVisualStyleBackColor = true;
@@ -89,9 +95,9 @@
             // 
             // Bag
             // 
-            Bag.Location = new Point(203, 30);
+            Bag.Location = new Point(611, 600);
             Bag.Name = "Bag";
-            Bag.Size = new Size(176, 87);
+            Bag.Size = new Size(285, 85);
             Bag.TabIndex = 3;
             Bag.Text = "Pokemon ++";
             Bag.UseVisualStyleBackColor = true;
@@ -110,7 +116,7 @@
             // 
             // PlayerPokemon_L3
             // 
-            PlayerPokemon_L3.BackColor = Color.FromArgb(255, 255, 128);
+            PlayerPokemon_L3.BackColor = Color.Transparent;
             PlayerPokemon_L3.Location = new Point(337, 183);
             PlayerPokemon_L3.Name = "PlayerPokemon_L3";
             PlayerPokemon_L3.Size = new Size(152, 149);
@@ -130,7 +136,7 @@
             // 
             // PlayerPokemonLayer_L3
             // 
-            PlayerPokemonLayer_L3.BackColor = Color.FromArgb(0, 192, 192);
+            PlayerPokemonLayer_L3.BackColor = Color.Transparent;
             PlayerPokemonLayer_L3.Location = new Point(337, 338);
             PlayerPokemonLayer_L3.Name = "PlayerPokemonLayer_L3";
             PlayerPokemonLayer_L3.Size = new Size(152, 150);
@@ -161,17 +167,17 @@
             // PlayerHealthBar
             // 
             PlayerHealthBar.BackColor = Color.Transparent;
-            PlayerHealthBar.Location = new Point(796, 411);
+            PlayerHealthBar.Location = new Point(702, 444);
             PlayerHealthBar.Name = "PlayerHealthBar";
-            PlayerHealthBar.Size = new Size(388, 94);
+            PlayerHealthBar.Size = new Size(400, 100);
             PlayerHealthBar.SizeMode = PictureBoxSizeMode.StretchImage;
             PlayerHealthBar.TabIndex = 10;
             PlayerHealthBar.TabStop = false;
             // 
             // OpponentHealthBar
             // 
-            OpponentHealthBar.BackColor = Color.Transparent;
-            OpponentHealthBar.Location = new Point(434, 42);
+            OpponentHealthBar.BackColor = Color.Black;
+            OpponentHealthBar.Location = new Point(188, 53);
             OpponentHealthBar.Name = "OpponentHealthBar";
             OpponentHealthBar.Size = new Size(371, 91);
             OpponentHealthBar.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -192,7 +198,7 @@
             // 
             // AttackSprite
             // 
-            AttackSprite.BackColor = Color.FromArgb(192, 0, 192);
+            AttackSprite.BackColor = Color.Transparent;
             AttackSprite.Location = new Point(495, 183);
             AttackSprite.Name = "AttackSprite";
             AttackSprite.Size = new Size(152, 150);
@@ -200,11 +206,22 @@
             AttackSprite.TabIndex = 13;
             AttackSprite.TabStop = false;
             // 
+            // Pokemon
+            // 
+            Pokemon.Location = new Point(313, 600);
+            Pokemon.Name = "Pokemon";
+            Pokemon.Size = new Size(285, 85);
+            Pokemon.TabIndex = 14;
+            Pokemon.Text = "Pokemon";
+            Pokemon.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = SystemColors.ControlDarkDark;
             ClientSize = new Size(1209, 698);
+            Controls.Add(Pokemon);
             Controls.Add(AttackSprite);
             Controls.Add(OpponentPokemonLayer_L5);
             Controls.Add(OpponentHealthBar);
@@ -222,7 +239,7 @@
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
             Name = "Form1";
-            Text = "Form1";
+            Text = "Battle";
             Load += Form1_Load;
             ((System.ComponentModel.ISupportInitialize)OpponentPokemon_L5).EndInit();
             ((System.ComponentModel.ISupportInitialize)BattleBases_L2).EndInit();
@@ -254,5 +271,6 @@
         private PictureBox OpponentHealthBar;
         private PictureBox OpponentPokemonLayer_L5;
         private PictureBox AttackSprite;
+        private Button Pokemon;
     }
 }
