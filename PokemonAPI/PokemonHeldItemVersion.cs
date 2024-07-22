@@ -8,7 +8,7 @@ namespace PokemonAPI
 {
     public class PokemonHeldItemVersion
     {
-        NamedAPIResource version {  get; set; }
-        int rarity { get; set; }
+        public NamedAPIResource version {  get; set; }
+        public int rarity { get; set; }
     }
 }

@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <Folder Include="Data\Moves\" />
+    <Folder Include="Data\Icons\" />
     <Folder Include="Data\Pokemon\" />
     <Folder Include="Data\Sprites\" />
   </ItemGroup>

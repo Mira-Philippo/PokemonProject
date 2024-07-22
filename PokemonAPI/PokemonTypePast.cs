@@ -8,7 +8,7 @@ namespace PokemonAPI
 {
     public class PokemonTypePast
     {
-        NamedAPIResource generation {  get; set; }
-        List<PokemonType> types { get; set; }
+        public NamedAPIResource generation {  get; set; }
+        public List<PokemonType> types { get; set; }
     }
 }

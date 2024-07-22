@@ -8,7 +8,7 @@ namespace PokemonAPI
 {
     public class VersionGameIndex
     {
-        int game_index {  get; set; }
-        NamedAPIResource version {  get; set; }
+        public int game_index {  get; set; }
+        public NamedAPIResource version {  get; set; }
     }
 }

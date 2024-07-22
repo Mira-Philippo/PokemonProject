@@ -8,8 +8,8 @@ namespace PokemonAPI
 {
     public class PokemonAbility
     {
-        bool is_hidden { get; set; }
-        int slot { get; set; }
-        NamedAPIResource ability {  get; set; }
+        public bool is_hidden { get; set; }
+        public int slot { get; set; }
+        public NamedAPIResource ability {  get; set; }
     }
 }
