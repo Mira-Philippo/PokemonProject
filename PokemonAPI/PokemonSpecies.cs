@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace PokemonAPI
@@ -35,5 +36,25 @@ namespace PokemonAPI
         public List<Description> form_descriptions { get; set; }
         public List<Genus> genera {  get; set; }
         public List<PokemonSpeciesVariety> varieties { get; set; }
+
+        public static PokemonSpecies GetPokemon(object pokemonIdentification, ApiConnection conn)
+        {
+            string data = string.Empty;
+            if (pokemonIdentification is string str)
+            {
+                data = (string)conn.GetResultFromUrl("pokemon/" + str.ToLower());
+            }
+            else if (pokemonIdentification is int num)
+            {
+                data = (string)conn.GetResultFromUrl("pokemon/" + num);
+            }
+            PokemonSpecies result = PokemonSpecies.ConvertJsonToObject(data);
+            return result;
+        }
+
+        public static PokemonSpecies ConvertJsonToObject(string json)
+        {
+            return JsonSerializer.Deserialize<PokemonSpecies>(json);
+        }
     }
 }

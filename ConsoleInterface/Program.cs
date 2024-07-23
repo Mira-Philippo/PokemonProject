@@ -32,7 +32,8 @@ namespace ConsoleInterface
                     Console.WriteLine("From what pokemon do you want to save the data?");
                     input = Console.ReadLine();
                     Pokemon pokemon = Pokemon.GetPokemon(input, connection);
-                    SaveData.SavePokemonDataToFile(pokemon);
+                    PokemonSpecies pokemonSpecies = PokemonSpecies.GetPokemon(input, connection);
+                    SaveData.SavePokemonDataToFile(pokemon, pokemonSpecies);
                     pokemon.Print();
                 }
             }

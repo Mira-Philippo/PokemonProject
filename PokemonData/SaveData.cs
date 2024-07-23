@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using PokemonAPI;
 
@@ -38,7 +39,7 @@ namespace PokemonData
                 throw new Exception("No root directory found!");
             }
         }
-        public static bool SavePokemonDataToFile(Pokemon savePokemon)
+        public static bool SavePokemonDataToFile(Pokemon savePokemon, PokemonSpecies savePokemonSpecies)
         {
             SetupSaveData();
             try
@@ -47,9 +48,9 @@ namespace PokemonData
                 {
                     File.Create($"{PokemonDataFolderPath}/{savePokemon.name}-{savePokemon.id:000}.txt").Close();
                 }
-                PokemonConverter.ConvertToJson(savePokemon);
+                string jsonString = JsonSerializer.Serialize(PokemonConverter.ConvertToConvertedPokemon(savePokemon, savePokemonSpecies));
                 StreamWriter writer = new StreamWriter($"{PokemonDataFolderPath}/{savePokemon.name}-{savePokemon.id:000}.txt");
-                
+                writer.Write(jsonString);
                 writer.Close();
                 
                 return true;
