@@ -8,7 +8,7 @@ namespace PokemonAPI
 {
     public class PokemonMove
     {
-        NamedAPIResource move {  get; set; }
-        List<PokemonMoveVersion> version_group_details { get; set; }
+        public NamedAPIResource move {  get; set; }
+        public List<PokemonMoveVersion> version_group_details { get; set; }
     }
 }

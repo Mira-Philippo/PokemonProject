@@ -11,6 +11,10 @@ namespace PokemonData
 {
     public class PokemonConverter
     {
+        //TODO
+        //Switch moves to be ints, only save the ID
+        //Switch abilities to their ID aswell
+        //Flavor text entries should be the latest available entry
         public static PokemonConverter ConvertToConvertedPokemon(Pokemon pokemon, PokemonSpecies pokemonSpecies)
         {
             PokemonConverter converter = new PokemonConverter();
@@ -59,23 +63,97 @@ namespace PokemonData
             converter.hatch_counter = pokemonSpecies.hatch_counter;
             converter.has_gender_differences = pokemonSpecies.has_gender_differences;
             converter.forms_switchable = pokemonSpecies.forms_switchable;
-            converter.growth_rate = pokemonSpecies.growth_rate.name;
-            converter.pokedex_numbers = new List<int>();
-            foreach (PokemonSpeciesDexEntry entry in pokemonSpecies.pokedex_numbers)
+            if (pokemonSpecies.growth_rate != null)
             {
-                converter.pokedex_numbers.Add(entry.entry_number);
+                converter.growth_rate = pokemonSpecies.growth_rate.name;
             }
-            converter.egg_groups = new List<string>();
-            foreach (NamedAPIResource eggGroup in pokemonSpecies.egg_groups)
+            else
             {
-                converter.egg_groups.Add(eggGroup.name);
+                converter.growth_rate = null;
             }
+            if (pokemonSpecies.pokedex_numbers != null)
+            {
+                converter.pokedex_numbers = new List<int>();
+                foreach (PokemonSpeciesDexEntry entry in pokemonSpecies.pokedex_numbers)
+                {
+                    converter.pokedex_numbers.Add(entry.entry_number);
+                }
+            }
+            else
+            {
+                converter.pokedex_numbers = null;
+            }
+            if (pokemonSpecies.egg_groups != null)
+            {
+                converter.egg_groups = new List<string>();
+                foreach (NamedAPIResource eggGroup in pokemonSpecies.egg_groups)
+                {
+                    converter.egg_groups.Add(eggGroup.name);
+                }
+            }
+            else
+            {
+                pokemonSpecies.egg_groups = null;
+            }
+            
             converter.color = pokemonSpecies.color.name;
             converter.shape = pokemonSpecies.shape.name;
             converter.habitat = pokemonSpecies.habitat.name;
             converter.generation = pokemonSpecies.generation.name;
-            converter.pal_park_encounters = ($"{pokemonSpecies.pal_park_encounters.area},{pokemonSpecies.pal_park_encounters.base_score},{pokemonSpecies.pal_park_encounters.rate}");
+            converter.pal_park_encounters = new List<string>();
+            foreach (PalParkEncounterArea area in pokemonSpecies.pal_park_encounters)
+            {
+                converter.egg_groups.Add($"{area.area},{area.base_score},{area.rate}");
+            }
+            foreach (FlavorText text in pokemonSpecies.flavor_text_entries)
+            {
+                if (text.language.name == "en")
+                {
+                    converter.flavor_text_entries = text.flavor_text;
+                    break;
+                }
+                
+            }
+            foreach (Description text in pokemonSpecies.form_descriptions)
+            {
+                if (text.language.name == "en")
+                {
+                    converter.form_descriptions = text.description;
+                    break;
+                }
+
+            }
+            foreach (Genus genus in pokemonSpecies.genera)
+            {
+                if (genus.language.name == "en")
+                {
+                    converter.genera = genus.genus;
+                    break;
+                }
+
+            }
+            converter.varieties = new List<string>();
+            foreach (PokemonSpeciesVariety variety in pokemonSpecies.varieties)
+            {
+                converter.varieties.Add(variety.pokemon.name + "," + variety.is_default);
+
+            }
+            converter.moves = new List<string>();
+            foreach (PokemonMove move in pokemon.moves)
+            {
+                converter.moves.Add(move.move.url);
+
+            }
+            if(pokemonSpecies.evolves_from_species != null)
+            {
+                converter.evolves_from_species = pokemonSpecies.evolves_from_species.name;
+            }
+            else
+            {
+                converter.evolves_from_species = null;
+            }
             
+            converter.evolution_chain = pokemonSpecies.evolution_chain.url;
             return converter;
 
         }
@@ -107,17 +185,16 @@ namespace PokemonData
         public string shape { get; set; }
         public string habitat { get; set; }
         public string generation { get; set; }
-        public string pal_park_encounters { get; set; }
+        public List<string> pal_park_encounters { get; set; }
+        public string flavor_text_entries { get; set; }
+        public string form_descriptions { get; set; }
+        public string genera { get; set; }
+        public List<string> varieties { get; set; }
+        public string evolves_from_species { get; set; }
+        public string evolution_chain { get; set; }
         
-        public List<FlavorText> flavor_text_entries { get; set; }
-        public List<Description> form_descriptions { get; set; }
-        public List<Genus> genera { get; set; }
-        public List<PokemonSpeciesVariety> varieties { get; set; }
-
-        public NamedAPIResource evolves_from_species { get; set; }
-        public APIResource evolution_chain { get; set; }
         public PokemonSprites sprites { get; set; }
         public PokemonCries cries { get; set; }
-        public List<PokemonMove> moves { get; set; }
+        public List<string> moves { get; set; }
     }
 }

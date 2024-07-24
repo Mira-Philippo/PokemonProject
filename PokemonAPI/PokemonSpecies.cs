@@ -31,7 +31,7 @@ namespace PokemonAPI
         public NamedAPIResource habitat {  get; set; }
         public NamedAPIResource generation { get; set; }
         public List<Name> names { get; set; }
-        public PalParkEncounterArea pal_park_encounters { get; set; }
+        public List<PalParkEncounterArea> pal_park_encounters { get; set; }
         public List<FlavorText> flavor_text_entries { get; set; }
         public List<Description> form_descriptions { get; set; }
         public List<Genus> genera {  get; set; }
@@ -42,11 +42,11 @@ namespace PokemonAPI
             string data = string.Empty;
             if (pokemonIdentification is string str)
             {
-                data = (string)conn.GetResultFromUrl("pokemon/" + str.ToLower());
+                data = (string)conn.GetResultFromUrl("pokemon-species/" + str.ToLower());
             }
             else if (pokemonIdentification is int num)
             {
-                data = (string)conn.GetResultFromUrl("pokemon/" + num);
+                data = (string)conn.GetResultFromUrl("pokemon-species/" + num);
             }
             PokemonSpecies result = PokemonSpecies.ConvertJsonToObject(data);
             return result;
